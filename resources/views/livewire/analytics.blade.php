@@ -5,7 +5,7 @@
                 @lang('Analytics')
             </span>
             <span class="lg:text-lg md:text-sm text-xs font-light text-gray-500">
-                @lang('Below is the dashboard containing all analytics related to projects and tickets configured in :app', [
+                @lang('Below is the dashboard containing all analytics related to tickets configured in :app', [
                     'app' => config('app.name')
                 ])
             </span>

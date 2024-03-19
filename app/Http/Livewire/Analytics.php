@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Project;
 use App\Models\Ticket;
 use App\Models\TicketStatus;
 use Livewire\Component;

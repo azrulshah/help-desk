@@ -98,8 +98,7 @@ return [
             'always_shown' => false,
             'show_notification_indicator' => false,
             'permissions' => [
-                'View all users', 'View company users',
-                'View all companies', 'View own companies',
+                'View all users',
                 'Manage ticket statuses',
                 'Manage ticket types',
                 'Manage ticket priorities',
@@ -107,18 +106,11 @@ return [
             ],
             'children' => [
                 [
-                    'title' => 'Manage companies',
-                    'route' => 'administration.companies',
-                    'icon' => 'fa-building',
-                    'always_shown' => false,
-                    'permissions' => ['View all companies', 'View own companies']
-                ],
-                [
                     'title' => 'Manage users',
                     'route' => 'administration.users',
                     'icon' => 'fa-users',
                     'always_shown' => false,
-                    'permissions' => ['View all users', 'View company users']
+                    'permissions' => ['View all users']
                 ],
                 [
                     'title' => 'Manage user roles',

@@ -25,7 +25,6 @@ class Ticket extends Model implements HasLogsActivity
         'type',
         'owner_id',
         'responsible_id',
-        'project_id',
         'number',
     ];
 
@@ -41,9 +40,7 @@ class Ticket extends Model implements HasLogsActivity
         });
         static::creating(function (Ticket $ticket) {
             $ticket->number = str_pad(
-                Ticket::where('project_id', $ticket->project_id)
-                        ->withTrashed()
-                        ->count() + 1,
+                Ticket::count(),
                 4,
                 '0',
                 STR_PAD_LEFT
@@ -59,11 +56,6 @@ class Ticket extends Model implements HasLogsActivity
     public function responsible(): BelongsTo
     {
         return $this->belongsTo(User::class, 'responsible_id')->withTrashed();
-    }
-
-    public function project(): BelongsTo
-    {
-        return $this->belongsTo(Project::class)->withTrashed();
     }
 
     public function comments(): HasMany

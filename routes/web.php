@@ -60,7 +60,6 @@ Route::middleware(['auth', 'set_locale'])
 
         // Administration
         Route::view('/administration/users', 'administration.users')->name('administration.users');
-        Route::view('/administration/companies', 'administration.companies')->name('administration.companies');
         Route::view('/administration/ticket-statuses', 'administration.ticket-statuses')
             ->name('administration.ticket-statuses');
         Route::view('/administration/ticket-priorities', 'administration.ticket-priorities')

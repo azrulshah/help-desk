@@ -88,7 +88,6 @@
                         flex-col justify-start items-start gap-1">
                         <span class="text-xs font-medium text-gray-500 flex flex-row justify-start items-center gap-2">
                             <em  class="fa fa-tag"></em>
-                            {{ $ticket->project->name }}
                             <span class="text-xs text-gray-300">/</span>
                             <button type="button" class="font-normal hover:cursor-pointer hover:underline"
                                     wire:click="copyTicketUrl('{{ $ticket->id }}')"
