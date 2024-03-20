@@ -43,6 +43,7 @@ class PermissionsSeeder extends Seeder
         'Create user roles',
         'Update user roles',
         'Delete user roles',
+        'Manage notice banners',
     ];
 
     /**

@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(FontAwesomeFreeSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(TicketDetailsSeeder::class);
         $this->call(PermissionsSeeder::class);
     }
 }
