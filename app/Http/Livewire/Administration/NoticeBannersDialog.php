@@ -44,6 +44,7 @@ class NoticeBannersDialog extends Component implements HasForms
      */
     protected function getFormSchema(): array
     {
+        if (!$this->notice?->id) {
         return [
             TextInput::make('title')
                 ->label(__('Title'))
@@ -66,6 +67,34 @@ class NoticeBannersDialog extends Component implements HasForms
                 ->maxLength(255)
                 ->required(),
             ];
+        } else {
+            return [
+                TextInput::make('title')
+                    ->label(__('Title'))
+                    ->maxLength(255)
+                    ->unique(
+                        table: Notice::class,
+                        column: 'title',
+                        ignorable: fn() => $this->notice,
+                        callback: function (Unique $rule) {
+                            return $rule->withoutTrashed();
+                        }
+                    )
+                    ->required(),
+                TextInput::make('content')
+                    ->label(__('Content'))
+                    ->maxLength(255)
+                    ->required(),
+                TextInput::make('category')
+                    ->label(__('Category'))
+                    ->maxLength(255)
+                    ->required(),
+                TextInput::make('status')
+                    ->label(__('Status'))
+                    ->maxLength(255)
+                    ->required(),
+                ];
+        }
     }
 
     /**

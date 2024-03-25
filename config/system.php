@@ -102,7 +102,8 @@ return [
                 'Manage ticket statuses',
                 'Manage ticket types',
                 'Manage ticket priorities',
-                'View activity log'
+                'View activity log',
+                'Manage notice banners'
             ],
             'children' => [
                 [
@@ -139,6 +140,13 @@ return [
                     'icon' => 'fa-arrow-up',
                     'always_shown' => false,
                     'permissions' => ['Manage ticket priorities']
+                ],
+                [
+                    'title' => 'Manage notice banners',
+                    'route' => 'administration.notice-banners',
+                    'icon' => 'fa-bullhorn',
+                    'always_shown' => false,
+                    'permissions' => ['Manage notice banners']
                 ],
                 [
                     'title' => 'Activity logs',
