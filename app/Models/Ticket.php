@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Ticket extends Model implements HasLogsActivity
 {
@@ -77,7 +78,8 @@ class Ticket extends Model implements HasLogsActivity
 
     public function activityLogLink(): string
     {
-        return route('tickets.number', $this->ticket_number);
+        
+        return route('tickets.details', [$this->id,'slug' => Str::slug($this->title)]);
     }
 
     public function chat(): HasOne

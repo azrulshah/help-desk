@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\TicketNumberController;
 use App\Models\Ticket;
 use App\Models\User;
+//use App\Http\Livewire\ScrollingBanner;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,4 +78,6 @@ Route::middleware(['auth', 'set_locale'])
 
         // Kanban board
         Route::view('/kanban', 'kanban')->name('kanban');
+
+        //Route::get('/scrolling-banner', ScrollingBanner::class)->name('scrolling-banner');
     });
