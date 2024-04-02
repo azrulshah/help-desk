@@ -44,7 +44,11 @@ class Priority extends Component implements HasForms
                 ->searchable()
                 ->disableLabel()
                 ->placeholder(__('Priority'))
-                ->options(priorities_list()),
+                ->options(function($state){
+                    $priorities = priorities_list();
+                    unset($priorities[$state]);
+                    return $priorities;
+                })
         ];
     }
 
