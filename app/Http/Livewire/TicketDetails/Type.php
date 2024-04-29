@@ -43,7 +43,11 @@ class Type extends Component implements HasForms
                 ->placeholder(__('Type'))
                 ->required()
                 ->searchable()
-                ->options(types_list()),
+                ->options(function($state){
+                    $types = types_list();
+                    unset($types[$state]);
+                    return $types;
+                }),
         ];
     }
 

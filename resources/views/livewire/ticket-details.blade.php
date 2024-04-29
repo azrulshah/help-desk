@@ -9,7 +9,6 @@
             <div class="w-full flex flex-col justify-center items-start gap-0">
                 <span class="w-full text-sm font-medium text-gray-500 flex flex-row justify-start items-center gap-2">
                     <em  class="fa fa-tag"></em>
-                    {{ $ticket->project->name }}
                     <span class="text-xs text-gray-300">/</span>
                     <button type="button" class="font-normal hover:cursor-pointer hover:underline"
                             wire:click="copyTicketUrl('{{ $ticket->id }}')"
@@ -60,6 +59,10 @@
             <div class="w-full flex flex-col justify-start items-start gap-2">
                 <span class="text-gray-500 font-normal text-xs">@lang('Type')</span>
                 @livewire('ticket-details.type', ['ticket' => $ticket])
+            </div>
+            <div class="w-full flex flex-col justify-start items-start gap-2">
+                <span class="text-gray-500 font-normal text-xs">@lang('Category')</span>
+                @livewire('ticket-details.category', ['ticket' => $ticket])
             </div>
             <div class="w-full flex flex-col justify-start items-start gap-2">
                 <span class="text-gray-500 font-normal text-xs">@lang('Priority')</span>

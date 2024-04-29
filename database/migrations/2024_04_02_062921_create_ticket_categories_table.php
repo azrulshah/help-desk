@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('ticket_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('logo')->nullable();
-            $table->longText('description')->nullable();
-            $table->boolean('is_disabled')->default(false);
-            $table->foreignId('responsible_id')->constrained('users');
+            $table->string('title')->unique();
+            $table->foreignId('parent_id')->nullable()->constrained('ticket_categories');
+            $table->string('slug',500);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('ticket_categories');
     }
 };

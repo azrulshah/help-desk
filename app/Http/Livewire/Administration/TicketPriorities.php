@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Administration;
 
 use App\Models\TicketPriority;
-use App\Models\User;
 use Carbon\Carbon;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;

@@ -43,7 +43,11 @@ class Status extends Component implements HasForms
                 ->placeholder(__('Status'))
                 ->required()
                 ->searchable()
-                ->options(statuses_list()),
+                ->options(function($state){
+                    $statuses = statuses_list();
+                    unset($statuses[$state]);
+                    return $statuses;
+                }),
         ];
     }
 

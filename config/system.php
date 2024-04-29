@@ -60,7 +60,7 @@ return [
     */
     'main_menu' => [
         [
-            'title' => 'Overview',
+            'title' => 'Dashboard',
             'route' => 'home',
             'icon' => 'fa-table-columns',
             'always_shown' => true,
@@ -98,27 +98,20 @@ return [
             'always_shown' => false,
             'show_notification_indicator' => false,
             'permissions' => [
-                'View all users', 'View company users',
-                'View all companies', 'View own companies',
+                'View all users',
                 'Manage ticket statuses',
                 'Manage ticket types',
                 'Manage ticket priorities',
-                'View activity log'
+                'View activity log',
+                'Manage notice banners'
             ],
             'children' => [
-                [
-                    'title' => 'Manage companies',
-                    'route' => 'administration.companies',
-                    'icon' => 'fa-building',
-                    'always_shown' => false,
-                    'permissions' => ['View all companies', 'View own companies']
-                ],
                 [
                     'title' => 'Manage users',
                     'route' => 'administration.users',
                     'icon' => 'fa-users',
                     'always_shown' => false,
-                    'permissions' => ['View all users', 'View company users']
+                    'permissions' => ['View all users']
                 ],
                 [
                     'title' => 'Manage user roles',
@@ -142,11 +135,32 @@ return [
                     'permissions' => ['Manage ticket types']
                 ],
                 [
+                    'title' => 'Manage categories',
+                    'route' => 'administration.ticket-categories',
+                    'icon' => 'fa-copy',
+                    'always_shown' => false,
+                    'permissions' => ['Manage ticket categories']
+                ],
+                [
+                    'title' => 'Manage subcategories',
+                    'route' => 'administration.ticket-subcategories',
+                    'icon' => 'fa-copy',
+                    'always_shown' => false,
+                    'permissions' => ['Manage ticket categories']
+                ],
+                [
                     'title' => 'Manage priorities',
                     'route' => 'administration.ticket-priorities',
                     'icon' => 'fa-arrow-up',
                     'always_shown' => false,
                     'permissions' => ['Manage ticket priorities']
+                ],
+                [
+                    'title' => 'Manage notice banners',
+                    'route' => 'administration.notice-banners',
+                    'icon' => 'fa-bullhorn',
+                    'always_shown' => false,
+                    'permissions' => ['Manage notice banners']
                 ],
                 [
                     'title' => 'Activity logs',

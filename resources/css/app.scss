@@ -6,6 +6,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .pause {
+        animation-play-state: paused;
+    }
+}
+
 .main-menu {
     @apply transition-all relative z-40;
     min-width: 250px;

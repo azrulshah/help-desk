@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Jobs\TicketCreatedJob;
-use App\Models\Project;
 use App\Models\Ticket;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
@@ -28,7 +27,6 @@ class TicketsDialog extends Component implements HasForms
             'title' => $this->ticket->title,
             'content' => $this->ticket->content,
             'priority' => $this->ticket->priority,
-            'project_id' => $this->ticket->project_id,
         ]);
     }
 
@@ -46,18 +44,6 @@ class TicketsDialog extends Component implements HasForms
     {
         return [
 
-            Select::make('project_id')
-                ->label(__('Project'))
-                ->required()
-                ->searchable()
-                ->options(function () {
-                    $query = Project::query();
-                    if (auth()->user()->can('View own projects') && !auth()->user()->can('View all projects')) {
-                        $query->where('owner_id', auth()->user()->id);
-                    }
-                    return $query->get()->pluck('name', 'id');
-                }),
-
             Grid::make()
                 ->schema([
 
@@ -73,6 +59,11 @@ class TicketsDialog extends Component implements HasForms
                         ->searchable()
                         ->options(priorities_list()),
 
+                    Select::make('category')
+                        ->label(__('Category'))
+                        ->required()
+                        ->searchable()
+                        ->options(subcategories_list()),
                 ]),
 
             TextInput::make('title')
@@ -98,12 +89,12 @@ class TicketsDialog extends Component implements HasForms
     {
         $data = $this->form->getState();
         $ticket = Ticket::create([
-            'project_id' => $data['project_id'],
             'title' => $data['title'],
             'content' => $data['content'],
             'owner_id' => auth()->user()->id,
             'priority' => $data['priority'],
             'type' => $data['type'],
+            'category' => $data['category'],
             'status' => default_ticket_status()
         ]);
         Notification::make()
