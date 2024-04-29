@@ -25,16 +25,16 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert(
             array(
-                'name' => 'staff',
-                'email' => 'staff@gmail.com',
+                'name' => 'technician',
+                'email' => 'tech@gmail.com',
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
             )
         );
 
         DB::table('users')->insert(
             array(
-                'name' => 'technician',
-                'email' => 'tech@gmail.com',
+                'name' => 'user',
+                'email' => 'user@gmail.com',
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
             )
         );

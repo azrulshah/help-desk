@@ -5,8 +5,7 @@
         @foreach ($notices as $notice) 
         <div wire:key="{{ $notice->id }}"> 
             @if ($notice->status==1)
-            <div class="px-[30px] py-0">{{$notice->content}}</div>
-            <div class="px-[80px] py-0"></div>
+            <div class="px-[30px] py-0"><i class="fa-solid fa-circle"></i>  {{$notice->content}}</div>
             @endif
         </div>
             

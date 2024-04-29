@@ -118,9 +118,9 @@ class NoticeBannersDialog extends Component implements HasForms
                 ->title(__('Notice created'))
                 ->body(__('The notice has been created'))
                 ->send();
-            if ($notice->status) {
-                Notice::where('id', '<>', $notice->id)->update(['status' => false]);
-            }
+            // if ($notice->status) {
+            //     Notice::where('id', '<>', $notice->id)->update(['status' => false]);
+            // }
         } else {
             $this->notice->title = $data['title'];
             $this->notice->content = $data['content'];
@@ -132,7 +132,7 @@ class NoticeBannersDialog extends Component implements HasForms
                 ->title(__('Notice updated'))
                 ->body(__('The notice\'s details has been updated'))
                 ->send();
-            Notice::where('id', '<>', $this->notice->id)->update(['status' => false]);
+            //Notice::where('id', '<>', $this->notice->id)->update(['status' => false]);
         }
         if (Notice::where('status', true)->count() === 0) {
             $first = Notice::first();

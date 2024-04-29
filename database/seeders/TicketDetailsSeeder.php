@@ -46,12 +46,28 @@ class TicketDetailsSeeder extends Seeder
             )
         );
 
+        DB::table('ticket_categories')->insert(
+            array(
+                'title' => 'PC',
+                'parent_id' => null,
+                'slug' => 'pc'
+            )
+        );
+
+        DB::table('ticket_categories')->insert(
+            array(
+                'title' => 'Mouse',
+                'parent_id' => 1,
+                'slug' => 'mouse'
+            )
+        );
+
         DB::table('notices')->insert(
             array(
                 'title' => 'System Maintenance',
                 'content' => 'ICT System Maintenance Scheduled for March 16, 2024. Expect Temporary Service Disruptions.',
                 'category' => 'System',
-                'status' => 'Ongoing',
+                'status' => 1,
                 'slug' => 'maintenance'
             )
         );
@@ -61,7 +77,7 @@ class TicketDetailsSeeder extends Seeder
                 'title' => 'Test',
                 'content' => 'test',
                 'category' => 'test',
-                'status' => 'test',
+                'status' => 1,
                 'slug' => 'test'
             )
         );

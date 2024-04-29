@@ -59,6 +59,11 @@ class TicketsDialog extends Component implements HasForms
                         ->searchable()
                         ->options(priorities_list()),
 
+                    Select::make('category')
+                        ->label(__('Category'))
+                        ->required()
+                        ->searchable()
+                        ->options(subcategories_list()),
                 ]),
 
             TextInput::make('title')
@@ -89,6 +94,7 @@ class TicketsDialog extends Component implements HasForms
             'owner_id' => auth()->user()->id,
             'priority' => $data['priority'],
             'type' => $data['type'],
+            'category' => $data['category'],
             'status' => default_ticket_status()
         ]);
         Notification::make()

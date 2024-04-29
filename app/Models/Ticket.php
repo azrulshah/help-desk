@@ -24,6 +24,7 @@ class Ticket extends Model implements HasLogsActivity
         'status',
         'priority',
         'type',
+        'category',
         'owner_id',
         'responsible_id',
         'number',

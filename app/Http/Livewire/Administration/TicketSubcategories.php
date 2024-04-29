@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Administration;
 
-use App\Models\TicketPriority;
+use App\Models\TicketCategory;
 use Carbon\Carbon;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -16,17 +18,19 @@ use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Columns\Column;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
-class TicketPriorities extends Component implements HasTable
+class TicketSubcategories extends Component implements HasTable
 {
     use InteractsWithTable;
 
-    public $selectedPriority;
+    public $selectedSubcategory;
 
-    protected $listeners = ['prioritySaved', 'priorityDeleted'];
+    protected $listeners = ['subcategorySaved', 'subcategoryDeleted'];
+
+    public TicketCategory $subcategory;
 
     public function render()
     {
-        return view('livewire.administration.ticket-priorities');
+        return view('livewire.administration.ticket-subcategories');
     }
 
     /**
@@ -36,9 +40,9 @@ class TicketPriorities extends Component implements HasTable
      */
     protected function getTableQuery(): Builder|Relation
     {
-        return TicketPriority::query();
+        return TicketCategory::all()->whereNotNull('parent_id')->toQuery();
     }
-
+   
     /**
      * Table definition
      *
@@ -48,10 +52,10 @@ class TicketPriorities extends Component implements HasTable
     {
         return [
             TextColumn::make('title')
-                ->label(__('Title'))
+                ->label(__('Subcategory'))
                 ->searchable()
                 ->sortable()
-                ->formatStateUsing(fn(TicketPriority $record) => new HtmlString('
+                ->formatStateUsing(fn(TicketCategory $record) => new HtmlString('
                     <span
                         class="px-2 py-1 rounded-full text-sm flex items-center gap-2"
                         style="color: ' . $record->text_color . '; background-color: ' . $record->bg_color . '"
@@ -59,7 +63,20 @@ class TicketPriorities extends Component implements HasTable
                     <i class="fa ' . $record->icon . '"></i>' . $record->title . '
                     </span>
                 ')),
-
+            TextColumn::make('parent_id')
+                ->label(__('Category'))
+                ->searchable()
+                ->sortable()
+                ->formatStateUsing(fn(TicketCategory $record) =>
+                new HtmlString('
+                <span
+                    class="px-2 py-1 rounded-full text-sm flex items-center gap-2"
+                    style="color: ' . $record->text_color . '; background-color: ' . $record->bg_color . '"
+                >
+                ' . $record->where('id', $record->parent_id)->pluck('title')->implode(', ') . '
+                </span>
+            ')
+        ),
             TextColumn::make('created_at')
                 ->label(__('Created at'))
                 ->sortable()
@@ -79,8 +96,8 @@ class TicketPriorities extends Component implements HasTable
             Action::make('edit')
                 ->icon('heroicon-o-pencil')
                 ->link()
-                ->label(__('Edit priority'))
-                ->action(fn(TicketPriority $record) => $this->updatePriority($record->id))
+                ->label(__('Edit category'))
+                ->action(fn(TicketCategory $record) => $this->updateSubcategory($record->id))
         ];
     }
 
@@ -99,7 +116,7 @@ class TicketPriorities extends Component implements HasTable
                 ->exports([
                     ExcelExport::make()
                         ->askForWriterType()
-                        ->withFilename('ticket-priorities-export')
+                        ->withFilename('ticket-subcategories-export')
                         ->withColumns([
                             Column::make('title')
                                 ->heading(__('Title')),
@@ -132,56 +149,56 @@ class TicketPriorities extends Component implements HasTable
     }
 
     /**
-     * Show update priority dialog
+     * Show update subcategory dialog
      *
      * @param $id
      * @return void
      */
-    public function updatePriority($id)
+    public function updateSubcategory($id)
     {
-        $this->selectedPriority = TicketPriority::find($id);
-        $this->dispatchBrowserEvent('togglePriorityModal');
+        $this->selectedSubcategory = TicketCategory::find($id);
+        $this->dispatchBrowserEvent('toggleSubcategoryModal');
     }
 
     /**
-     * Show create priority dialog
+     * Show create subcategory dialog
      *
      * @return void
      */
-    public function createPriority()
+    public function createSubcategory()
     {
-        $this->selectedPriority = new TicketPriority();
-        $this->dispatchBrowserEvent('togglePriorityModal');
+        $this->selectedSubcategory = new TicketCategory();
+        $this->dispatchBrowserEvent('toggleSubcategoryModal');
     }
 
     /**
-     * Cancel and close priority create / update dialog
+     * Cancel and close subcategory create / update dialog
      *
      * @return void
      */
-    public function cancelPriority()
+    public function cancelSubcategory()
     {
-        $this->selectedPriority = null;
-        $this->dispatchBrowserEvent('togglePriorityModal');
+        $this->selectedSubcategory = null;
+        $this->dispatchBrowserEvent('toggleSubcategoryModal');
     }
 
     /**
-     * Event launched after a priority is created / updated
+     * Event launched after a subcategory is created / updated
      *
      * @return void
      */
-    public function prioritySaved()
+    public function subcategorySaved()
     {
-        $this->cancelPriority();
+        $this->cancelSubcategory();
     }
 
     /**
-     * Event launched after a priority is deleted
+     * Event launched after a subcategory is deleted
      *
      * @return void
      */
-    public function priorityDeleted()
+    public function subcategoryDeleted()
     {
-        $this->prioritySaved();
+        $this->subcategorySaved();
     }
 }

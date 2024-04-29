@@ -60,7 +60,7 @@ return [
     */
     'main_menu' => [
         [
-            'title' => 'Overview',
+            'title' => 'Dashboard',
             'route' => 'home',
             'icon' => 'fa-table-columns',
             'always_shown' => true,
@@ -133,6 +133,20 @@ return [
                     'icon' => 'fa-copy',
                     'always_shown' => false,
                     'permissions' => ['Manage ticket types']
+                ],
+                [
+                    'title' => 'Manage categories',
+                    'route' => 'administration.ticket-categories',
+                    'icon' => 'fa-copy',
+                    'always_shown' => false,
+                    'permissions' => ['Manage ticket categories']
+                ],
+                [
+                    'title' => 'Manage subcategories',
+                    'route' => 'administration.ticket-subcategories',
+                    'icon' => 'fa-copy',
+                    'always_shown' => false,
+                    'permissions' => ['Manage ticket categories']
                 ],
                 [
                     'title' => 'Manage priorities',
