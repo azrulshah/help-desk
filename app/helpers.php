@@ -29,7 +29,37 @@ if (!function_exists('subcategories_list')) {
      */
     function subcategories_list(): array
     {
-        return TicketCategory::whereNotNull('parent_id')->pluck('title', 'slug')->toArray();
+        return TicketCategory::whereNotNull('parent_id')->pluck('title', 'id')->toArray();
+    }
+}
+
+if (!function_exists('search_all_categories')) {
+    /**
+     * Return statuses list as an array of KEY (status id) => VALUE (status title)
+     *
+     * 
+     */
+    function search_all_categories()
+    {
+        $list = [];
+        $list2 = [];
+        $categories = TicketCategory::whereNull('parent_id')->get();
+        $subcategories = TicketCategory::whereNotNull('parent_id')->get();
+        foreach ($categories as $category){
+            foreach ($subcategories as $subcategory){
+                if($subcategory->parent_id == $category->id){
+                    $list2[] = $subcategory->title;
+                    
+                }
+                
+            }
+            $list[] = [
+                "category" => $category->title,
+                "subcategory" => $list2,
+            ];
+            $list2 = [];
+        }
+        return $list;
     }
 }
 
@@ -127,4 +157,12 @@ if (!function_exists('can')) {
     {
         
     }
+}
+
+function debug_to_console($data) {
+    $output = $data;
+    if (is_array($output))
+        $output = implode(',', $output);
+
+    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }

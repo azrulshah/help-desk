@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Administration;
+namespace App\Http\Livewire;
 
 use App\Core\CrudDialogHelper;
 use App\Models\Notice;
@@ -34,7 +34,7 @@ class NoticeBannersDialog extends Component implements HasForms
 
     public function render()
     {
-        return view('livewire.administration.notice-banners-dialog');
+        return view('livewire.notice-banners-dialog');
     }
 
     /**

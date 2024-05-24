@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Administration;
+namespace App\Http\Livewire;
 
 use App\Models\Notice;
 use Carbon\Carbon;
@@ -26,7 +26,7 @@ class NoticeBanners extends Component implements HasTable
 
     public function render()
     {
-        return view('livewire.administration.notice-banners');
+        return view('livewire.notice-banners');
     }
 
     /**
@@ -47,22 +47,38 @@ class NoticeBanners extends Component implements HasTable
     protected function getTableColumns(): array
     {
         return [
-            TextColumn::make('title')
-                ->label(__('Title'))
+            TextColumn::make('content')
+                ->label(__('Content'))
                 ->searchable()
                 ->sortable()
                 ->formatStateUsing(fn(Notice $record) => new HtmlString('
                     <span class="px-2 py-1 rounded-full text-sm"
                         >
-                            ' . $record->title . '
+                            ' . $record->content . '
                         </span>
                 ')),
 
             TextColumn::make('created_at')
-                ->label(__('Created at'))
+                ->label(__('Created since'))
                 ->sortable()
                 ->searchable()
-                ->dateTime(),
+                ->dateTime()
+                ->formatStateUsing(fn(Notice $record) => new HtmlString('
+                    <div>
+                    <span 
+                        x-data="{ tooltip: false }" 
+                        x-on:mouseover="tooltip = true" 
+                        x-on:mouseleave="tooltip = false"
+                        class="px-2 py-1 rounded-full text-sm">
+                            ' . Carbon::parse($record->created_at)->diffForHumans() . '
+                        <div x-show="tooltip"
+                            class="text-sm text-white absolute bg-blue-400 rounded-lg p-2
+                            transform -translate-y-14 translate-x-0">
+                        ' . $record->created_at . '
+                        </div>
+                    </span>
+                    </div>
+                ')),
         ];
     }
 
@@ -73,6 +89,7 @@ class NoticeBanners extends Component implements HasTable
      */
     protected function getTableActions(): array
     {
+        if(auth()->user()->can('Manage notice banners'))
         return [
             Action::make('edit')
                 ->icon('heroicon-o-pencil')
@@ -80,33 +97,7 @@ class NoticeBanners extends Component implements HasTable
                 ->label(__('Edit type'))
                 ->action(fn(Notice $record) => $this->updateNotice($record->id))
         ];
-    }
-
-    /**
-     * Table header actions definition
-     *
-     * @return array
-     */
-    protected function getTableHeaderActions(): array
-    {
-        return [
-            ExportAction::make()
-                ->label(__('Export'))
-                ->color('success')
-                ->icon('heroicon-o-document-download')
-                ->exports([
-                    ExcelExport::make()
-                        ->askForWriterType()
-                        ->withFilename('notice-banners-export')
-                        ->withColumns([
-                            Column::make('title')
-                                ->heading(__('Title')),
-                            Column::make('created_at')
-                                ->heading(__('Created at'))
-                                ->formatStateUsing(fn(Carbon $state) => $state->format(__('Y-m-d g:i A'))),
-                        ])
-                ])
-        ];
+        else return [];
     }
 
     /**

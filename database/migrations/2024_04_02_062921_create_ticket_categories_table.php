@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->foreignId('parent_id')->nullable()->constrained('ticket_categories');
+            $table->string('text_color');
+            $table->string('bg_color');
             $table->string('slug',500);
             $table->softDeletes();
             $table->timestamps();

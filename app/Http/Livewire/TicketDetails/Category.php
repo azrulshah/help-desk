@@ -45,7 +45,7 @@ class Category extends Component implements HasForms
                 ->disableLabel()
                 ->placeholder(__('Category'))
                 ->options(function($state){
-                    $categories = subcategories_list();
+                    $categories = categories_list();
                     unset($categories[$state]);
                     return $categories;
                 })
@@ -70,7 +70,7 @@ class Category extends Component implements HasForms
     public function save(): void
     {
         $data = $this->form->getState();
-        $before = __(config('system.categories.' . $this->ticket->category . '.title')) ?? '-';
+        $before = $this->ticket->category ?? '-';
         $this->ticket->category = $data['category'];
         $this->ticket->save();
         Notification::make()
@@ -87,7 +87,7 @@ class Category extends Component implements HasForms
             $this->ticket,
             __('Category'),
             $before,
-            __(config('system.priorities.' . $this->ticket->category . '.title') ?? '-'),
+            ($this->ticket->category ?? '-'),
             auth()->user()
         );
     }

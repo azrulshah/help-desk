@@ -10,11 +10,14 @@
                 ])
             </span>
         </div>
+        @if(
+        auth()->user()->can('Manage notice banners'))
         <button type="button" wire:click="createNotice()"
                 class="bg-primary-700 text-white hover:bg-primary-800 px-4 py-2 rounded-lg shadow
                 hover:shadow-lg text-base">
             @lang('Create a new notice banners')
         </button>
+        @endif
     </div>
     <div class="w-full mt-5">
         <div class="w-full flex flex-col justify-start items-start gap-5">
@@ -47,7 +50,7 @@
                         </button>
                     </div>
                     @if($selectedNotice)
-                        @livewire('administration.notice-banners-dialog', ['notice' => $selectedNotice])
+                        @livewire('notice-banners-dialog', ['notice' => $selectedNotice])
                     @endif
                 </div>
             </div>

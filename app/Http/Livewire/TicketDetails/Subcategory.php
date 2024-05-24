@@ -46,7 +46,7 @@ class Subcategory extends Component implements HasForms
                 ->disableLabel()
                 ->placeholder(__('Subcategory'))
                 ->options(function($state){
-                    $subcategories = categories_list();
+                    $subcategories = subcategories_list();
                     unset($subcategories[$state]);
                     return $subcategories;
                 })
@@ -71,7 +71,7 @@ class Subcategory extends Component implements HasForms
     public function save(): void
     {
         $data = $this->form->getState();
-        $before = __(config('system.categories.' . $this->ticket->subcategory . '.title')) ?? '-';
+        $before = $this->ticket->subcategory ?? '-';
         $this->ticket->subcategory = $data['subcategory'];
         $this->ticket->save();
         Notification::make()
@@ -88,7 +88,7 @@ class Subcategory extends Component implements HasForms
             $this->ticket,
             __('Subcategory'),
             $before,
-            __(config('system.priorities.' . $this->ticket->subcategory . '.title') ?? '-'),
+            ($this->ticket->subcategory ?? '-'),
             auth()->user()
         );
     }

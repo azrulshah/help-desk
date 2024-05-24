@@ -42,7 +42,6 @@ Route::middleware(['auth', 'set_locale'])
     ->group(function () {
         // Logout
         Route::get('/auth/logout', LogoutController::class)->name('auth.logout');
-
         // Home
         Route::view('/', 'welcome')->name('home');
 
@@ -70,8 +69,7 @@ Route::middleware(['auth', 'set_locale'])
         Route::view('/administration/activity-logs', 'administration.activity-logs')
             ->name('administration.activity-logs');
         Route::view('/administration/roles', 'administration.roles')->name('administration.roles');
-        Route::view('/administration/notice-banners', 'administration.notice-banners')
-            ->name('administration.notice-banners');
+        
         Route::view('/administration/ticket-categories', 'administration.ticket-categories')->name('administration.ticket-categories');
         Route::view('/administration/ticket-subcategories', 'administration.ticket-subcategories')->name('administration.ticket-subcategories');
 
@@ -81,5 +79,9 @@ Route::middleware(['auth', 'set_locale'])
         // Kanban board
         Route::view('/kanban', 'kanban')->name('kanban');
 
+        // Notice banner
         //Route::get('/scrolling-banner', ScrollingBanner::class)->name('scrolling-banner');
+        Route::view('/show-notices','show-notices')->name('show-notices');
+        Route::view('/notice-banners', 'notice-banners')
+            ->name('notice-banners');
     });

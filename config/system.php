@@ -68,6 +68,14 @@ return [
             'permissions' => ['']
         ],
         [
+            'title' => 'Manage notice banners',
+            'route' => 'notice-banners',
+            'icon' => 'fa-bullhorn',
+            'always_shown' => true,
+            'show_notification_indicator' => false,
+            'permissions' => ['']
+        ],
+        [
             'title' => 'Analytics',
             'route' => 'analytics',
             'icon' => 'fa-chart-bar',
@@ -103,7 +111,6 @@ return [
                 'Manage ticket types',
                 'Manage ticket priorities',
                 'View activity log',
-                'Manage notice banners'
             ],
             'children' => [
                 [
@@ -154,13 +161,6 @@ return [
                     'icon' => 'fa-arrow-up',
                     'always_shown' => false,
                     'permissions' => ['Manage ticket priorities']
-                ],
-                [
-                    'title' => 'Manage notice banners',
-                    'route' => 'administration.notice-banners',
-                    'icon' => 'fa-bullhorn',
-                    'always_shown' => false,
-                    'permissions' => ['Manage notice banners']
                 ],
                 [
                     'title' => 'Activity logs',

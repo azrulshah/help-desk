@@ -75,6 +75,8 @@ class PermissionsSeeder extends Seeder
             'Manage ticket statuses',
             'Manage ticket priorities',
             'Manage ticket types',
+            'Manage ticket categories',
+            'Manage notice banners',
             'View activity log',
             'Manage user roles',
             'Create user roles',

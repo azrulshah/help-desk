@@ -1,4 +1,5 @@
-<div class="w-full flex flex-col justify-start items-start gap-5" style="margin-left: 100px;padding: 20px;">
+<div class="relative h-320 w-320">
+<div class="w-full absolute inset-0 -top-12 flex flex-col justify-start items-start gap-5" style="margin-left: 100px;padding: 20px;">
     <div class="w-full flex md:flex-row flex-col justify-between items-start gap-2">
         <div class="flex flex-col justify-center items-start gap-1">
             <span class="lg:text-4xl md:text-2xl text-xl font-medium text-gray-700">
@@ -256,6 +257,7 @@
             </div>
         </div>
     </div>
+</div>
 
 
 @push('scripts')

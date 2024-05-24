@@ -1,9 +1,13 @@
 @switch($notification->type)
-
     @case(\App\Notifications\CommentCreateNotification::class)
         <div class="flex flex-col justify-start items-start gap-2">
-            <span class="text-sm text-gray-700 font-medium">@lang(':user commented the ticket :ticket',  [
-                'user' => $notification->data['user']['name'],
+            <?php
+            $comment = App\Models\Comment::find($notification->data['comment']['id']);
+            ?>
+            <span class="text-sm text-gray-700 font-medium">@lang(':user commented the ticket: :ticket',  [
+                
+                
+                'user' => $comment->owner->where('id',$notification->data['comment']['owner_id'])->pluck('name')->first(),
                 'ticket' => $notification->data['ticket']['title']
             ])</span>
             <a href="{{ route(
@@ -22,8 +26,11 @@
 
     @case(\App\Notifications\TicketCreatedNotification::class)
         <div class="flex flex-col justify-start items-start gap-2">
-            <span class="text-sm text-gray-700 font-medium">@lang(':user created the ticket :ticket',  [
-                    'user' => $notification->data['user']['name'],
+            <?php
+            $ticket = App\Models\Ticket::find($notification->data['ticket']['id']);
+            ?>
+            <span class="text-sm text-gray-700 font-medium">@lang(':user created the ticket: :ticket',  [
+                    'user' => $ticket->owner->where('id',$notification->data['ticket']['owner_id'])->pluck('name')->first(),
                     'ticket' => $notification->data['ticket']['title']
                 ])</span>
             <a href="{{ route(
@@ -41,10 +48,12 @@
 
     @case(\App\Notifications\TicketUpdatedNotification::class)
         <div class="flex flex-col justify-start items-start gap-2">
-            <span class="text-sm text-gray-700 font-medium">@lang(':user updated the ticket :ticket',  [
-                        'user' => $notification->data['user']['name'],
-                        'ticket' => $notification->data['ticket']['title']
-                    ])</span>
+            <?php
+            $ticket = App\Models\Ticket::find($notification->data['ticket']['id']);
+            ?>
+            <span class="text-sm text-gray-700 font-medium">@lang('ticket: :ticket is updated',  [
+                    'ticket' => $notification->data['ticket']['title']
+                ])</span>
             <div class="w-full flex flex-row justify-start items-center gap-2">
                 <div class="flex flex-row justify-start items-center gap-1">
                     <span class="text-xs text-gray-500 font-medium">

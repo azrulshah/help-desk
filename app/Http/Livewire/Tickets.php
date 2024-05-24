@@ -29,12 +29,24 @@ class Tickets extends Component implements HasForms
 
     public function mount()
     {
-        $this->menu = [
-            'All tickets',
-            'Unassigned',
-            'Assigned to me',
-            'Created by me',
-        ];
+        if(auth()->user()->hasRole('administrator')){
+            $this->menu = [
+                'All tickets',
+                'Unassigned',
+                'Assigned to me',
+                'Created by me',
+            ];
+        }else if(auth()->user()->hasRole('technician')){
+            $this->menu = [
+                'Assigned to me',
+                'Created by me',
+            ];
+        }else if(auth()->user()->hasRole('user')){
+            $this->menu = [
+                'Created by me',
+            ];
+        }
+        
         $this->activeMenu = $this->menu[0];
         $data = [];
         $this->form->fill($data);

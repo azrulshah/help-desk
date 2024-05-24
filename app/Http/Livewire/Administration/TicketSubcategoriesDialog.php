@@ -31,7 +31,9 @@ class TicketSubcategoriesDialog extends Component implements HasForms
     {
         $this->form->fill([
             'title' => $this->subcategory->title,
-            'parent_id' => $this->subcategory->parent_id
+            'parent_id' => $this->subcategory->parent_id,
+            'text_color' => $this->subcategory->text_color,
+            'bg_color' => $this->subcategory->bg_color,
         ]);
     }
 
@@ -65,7 +67,7 @@ class TicketSubcategoriesDialog extends Component implements HasForms
                         return $rule->withoutTrashed();
                     }
                 )
-                ->required()
+                ->required(),
             
         ];
     }
@@ -78,10 +80,13 @@ class TicketSubcategoriesDialog extends Component implements HasForms
     public function save(): void
     {
         $data = $this->form->getState();
+        $parent = $data['parent_id'];
         if (!$this->subcategory?->id) {
                 TicketCategory::create([
                     'title' => $data['title'],
-                    'parent_id' => null,
+                    'parent_id' => $data['parent_id'],
+                    'text_color' => TicketCategory::where('id',$parent)->pluck('text_color')->first(),
+                    'bg_color' => TicketCategory::where('id',$parent)->pluck('bg_color')->first(),
                     'slug' => Str::slug($data['title'], '_')
                 ]);
             Notification::make()
@@ -92,6 +97,8 @@ class TicketSubcategoriesDialog extends Component implements HasForms
         } else {
             $this->subcategory->title = $data['title'];
             $this->subcategory->parent_id = $data['parent_id'];
+            $this->subcategory->text_color = TicketCategory::where('id',$parent)->pluck('text_color')->first();
+            $this->subcategory->bg_color = TicketCategory::where('id',$parent)->pluck('bg_color')->first();
             $this->subcategory->save();
             Notification::make()
                 ->success()

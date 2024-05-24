@@ -69,7 +69,7 @@ class Status extends Component implements HasForms
     public function save(): void
     {
         $data = $this->form->getState();
-        $before = __(config('system.statuses.' . $this->ticket->status . '.title')) ?? '-';
+        $before = $this->ticket->status ?? '-';
         $this->ticket->status = $data['status'];
         $this->ticket->save();
         Notification::make()
@@ -86,7 +86,7 @@ class Status extends Component implements HasForms
             $this->ticket,
             __('Status'),
             $before,
-            __(config('system.statuses.' . $this->ticket->status . '.title') ?? '-'),
+            ($this->ticket->status ?? '-'),
             auth()->user()
         );
     }

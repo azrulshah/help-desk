@@ -15,6 +15,8 @@ class TicketCategory extends Model
 
     protected $fillable = [
         'title',
+        'text_color',
+        'bg_color',
         'slug',
         'parent_id',
     ];

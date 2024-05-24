@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Jobs\TicketCreatedJob;
 use App\Models\Ticket;
+use App\Models\TicketCategory;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -63,7 +64,22 @@ class TicketsDialog extends Component implements HasForms
                         ->label(__('Category'))
                         ->required()
                         ->searchable()
-                        ->options(subcategories_list()),
+                        ->options(categories_list()),
+                    Select::make('subcategory')
+                        ->label(__('Subcategory'))
+                        ->required()
+                        ->searchable()
+                        ->options([
+                                'In Process' => [
+                                    'draft' => 'Draft',
+                                    'reviewing' => 'Reviewing',
+                                ],
+                                'Reviewed' => [
+                                    'published' => 'Published',
+                                    'rejected' => 'Rejected',
+                                ],
+                            ]
+                        ),
                 ]),
 
             TextInput::make('title')
@@ -95,6 +111,7 @@ class TicketsDialog extends Component implements HasForms
             'priority' => $data['priority'],
             'type' => $data['type'],
             'category' => $data['category'],
+            'subcategory' => $data['subcategory'],
             'status' => default_ticket_status()
         ]);
         Notification::make()

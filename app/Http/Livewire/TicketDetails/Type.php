@@ -69,8 +69,8 @@ class Type extends Component implements HasForms
     public function save(): void
     {
         $data = $this->form->getState();
-        $before = __(config('system.types.' . $this->ticket->type . '.title')) ?? '-';
-        $this->ticket->type = $data['type'];
+        $before = $this->ticket->type ?? '-';
+        $this->ticket->type = $data['type'];        //remove title / name
         $this->ticket->save();
         Notification::make()
             ->success()
@@ -86,7 +86,7 @@ class Type extends Component implements HasForms
             $this->ticket,
             __('Type'),
             $before,
-            __(config('system.types.' . $this->ticket->type . '.title') ?? '-'),
+            ($this->ticket->type ?? '-'),
             auth()->user()
         );
     }

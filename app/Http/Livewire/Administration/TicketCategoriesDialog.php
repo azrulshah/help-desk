@@ -31,7 +31,9 @@ class TicketCategoriesDialog extends Component implements HasForms
     {
         $this->form->fill([
             'title' => $this->category->title,
-            'parent_id' => $this->category->parent_id
+            'parent_id' => $this->category->parent_id,
+            'text_color' => $this->category->text_color,
+            'bg_color' => $this->category->bg_color,
         ]);
     }
 
@@ -53,7 +55,7 @@ class TicketCategoriesDialog extends Component implements HasForms
                 ->label(__('Note: Select Category only when creating Subcategory'))
                 ->searchable()
                 ->options(categories_list()),
-            TextInput::make('Category')
+            TextInput::make('title')
                 ->label(__('Category / Subcategory name'))
                 ->maxLength(255)
                 ->unique(
@@ -65,7 +67,14 @@ class TicketCategoriesDialog extends Component implements HasForms
                         return $rule->withoutTrashed();
                     }
                 )
-                ->required()
+                ->required(),
+            ColorPicker::make('text_color')
+                ->label(__('Text color'))
+                ->required(),
+
+            ColorPicker::make('bg_color')
+                ->label(__('Background color'))
+                ->required(),
         ];
     }
 
@@ -82,6 +91,8 @@ class TicketCategoriesDialog extends Component implements HasForms
                 TicketCategory::create([
                     'title' => $data['title'],
                     'parent_id' => null,
+                    'text_color' => $data['text_color'],
+                    'bg_color' => $data['bg_color'],
                     'slug' => Str::slug($data['title'], '_')
                 ]);
             Notification::make()
@@ -94,6 +105,8 @@ class TicketCategoriesDialog extends Component implements HasForms
                 TicketCategory::create([
                     'title' => $data['title'],
                     'parent_id' => $data['parent_id'],
+                    'text_color' => $data['text_color'],
+                    'bg_color' => $data['bg_color'],
                     'slug' => Str::slug($data['title'], '_')
                 ]);
             Notification::make()
@@ -105,6 +118,8 @@ class TicketCategoriesDialog extends Component implements HasForms
         } else {
             $this->category->title = $data['title'];
             $this->category->parent_id = $data['parent_id'];
+            $this->category->text_color = $data['text_color'];
+            $this->category->bg_color = $data['bg_color'];
             $this->category->save();
             Notification::make()
                 ->success()
