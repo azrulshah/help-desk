@@ -267,13 +267,41 @@
 
     @push('scripts')
         <script>
-            window.addEventListener('load', () => {
-                @foreach($menu as $value['route'] => $value)
-                    @if(!(Route::is($value['route']) || Route::is($value['route'] . '.*')))
-                        window.makeTippy('#{{ $value['route'] }}', '{{ $value['title'] }}');
-                    @endif
-                @endforeach
-            })
+            document.addEventListener('DOMContentLoaded', () => {
+        const currentRoute = @json(Route::currentRouteName());
+        const menuItems = @json($menu);
+
+        menuItems.forEach(item => {
+            if (!(currentRoute === item.route || currentRoute.startsWith(item.route + '.'))) {
+                window.makeTippy(`#${item.route}`, item.title);
+            }
+        });
+
+    // Dropdown toggle
+    const dropdownToggles = document.querySelectorAll('[data-dropdown-toggle]');
+                dropdownToggles.forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        const targetId = toggle.getAttribute('data-dropdown-toggle');
+                        const dropdown = document.getElementById(targetId);
+                        if (dropdown) {
+                            dropdown.style.inset = null;
+                            dropdown.classList.toggle('hidden');
+                        }
+                    });
+                });
+
+                // Collapse toggle
+                const collapseToggles = document.querySelectorAll('[data-collapse-toggle]');
+                collapseToggles.forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        const targetId = toggle.getAttribute('data-collapse-toggle');
+                        const collapse = document.getElementById(targetId);
+                        if (collapse) {
+                            collapse.classList.toggle('hidden');
+                        }
+                    });
+                });
+            });
         </script>
     @endpush
 </nav>

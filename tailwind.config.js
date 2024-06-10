@@ -7,8 +7,6 @@ module.exports = {
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
-        "./resources/**/*.css",
-        "./resources/**/*.scss",
         "./node_modules/flowbite/**/*.js",
         "./vendor/filament/**/*.blade.php",
         "./config/system.php",

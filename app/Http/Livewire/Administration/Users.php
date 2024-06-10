@@ -24,7 +24,7 @@ class Users extends Component implements HasTable
 {
     use InteractsWithTable;
 
-    public $selectedUser;
+    public $selectedUser;           
 
     protected $listeners = ['userSaved', 'userDeleted'];
 
@@ -76,12 +76,6 @@ class Users extends Component implements HasTable
                 ->label(__('User roles'))
                 ->limit(1)
                 ->visible(fn() => auth()->user()->can('Assign permissions'))
-                ->searchable()
-                ->sortable(),
-
-            TagsColumn::make('companies.name')
-                ->label(__('Companies'))
-                ->limit(1)
                 ->searchable()
                 ->sortable(),
 
