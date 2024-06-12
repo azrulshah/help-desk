@@ -68,6 +68,9 @@ class Responsible extends Component implements HasForms
         $data = $this->form->getState();
         $before = $this->ticket->responsible?->name ?? '-';
         $this->ticket->responsible_id = $data['responsible_id'];
+        if($this->ticket->status == "pending"){
+            $this->ticket->status = "inprogress";
+        }
         $this->ticket->save();
         Notification::make()
             ->success()
@@ -80,6 +83,7 @@ class Responsible extends Component implements HasForms
         $this->updating = false;
         $this->ticket = $this->ticket->refresh();
         $this->emit('ticketSaved');
+        $this->emit('refreshStatusForm');  // Emit event to refresh status form
         TicketUpdatedJob::dispatch(
             $this->ticket,
             __('Responsible'),

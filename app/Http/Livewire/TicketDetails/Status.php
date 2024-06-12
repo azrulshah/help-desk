@@ -17,8 +17,18 @@ class Status extends Component implements HasForms
     public Ticket $ticket;
     public bool $updating = false;
 
+    protected $listeners = ['refreshStatusForm' => 'refreshForm'];
+
     public function mount(): void
     {
+        $this->form->fill([
+            'status' => $this->ticket->status
+        ]);
+    }
+
+    public function refreshForm(): void
+    {
+        $this->ticket = $this->ticket->refresh();
         $this->form->fill([
             'status' => $this->ticket->status
         ]);

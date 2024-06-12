@@ -55,7 +55,8 @@ class TicketsDialog extends Component implements HasForms
                         ->label(__('Type'))
                         ->required()
                         ->searchable()
-                        ->options(types_list()),
+                        ->options(types_list())
+                        ->afterStateUpdated(fn (callable $set) => $set('title', "test")),
 
                     Select::make('priority')
                         ->label(__('Priority'))

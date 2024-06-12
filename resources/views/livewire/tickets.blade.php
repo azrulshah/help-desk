@@ -39,7 +39,7 @@
                                 border border-gray-200 rounded-t-lg focus:ring-4 focus:ring-gray-200
                                 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100
                                 dark:hover:bg-gray-800"
-                                data-accordion-target="#filter-accordion-body" aria-expanded="false"
+                                data-accordion-target="#filter-accordion-body" aria-expanded="true"
                                 aria-controls="filter-accordion-body">
                             <span>@lang('Filters')</span>
                             <svg data-accordion-icon class="w-6 h-6 rotate-360 shrink-0" fill="currentColor"
@@ -50,7 +50,7 @@
                             </svg>
                         </button>
                     </h2>
-                    <div id="filter-accordion-body" class="hidden" aria-labelledby="filter-accordion-heading">
+                    <div id="filter-accordion-body" class="" aria-labelledby="filter-accordion-heading">
                         <div class="w-full flex flex-row justify-start items-center p-5 border border-gray-200">
                             <form wire:submit.prevent="search"
                                   class="relative flex lg:flex-row flex-col justify-start items-center gap-5 w-full">

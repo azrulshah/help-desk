@@ -91,9 +91,9 @@ class Tickets extends Component implements HasForms
         if ($this->types && sizeof($this->types)) {
             $query->whereIn('type', $this->types);
         }
-        if ($this->statuses && sizeof($this->responsible)) {
-            $query->whereIn('responsible_id', $this->responsible);
-        }
+        // if ($this->statuses && sizeof($this->responsible)) {
+        //     $query->whereIn('responsible_id', $this->responsible);
+        // }
         $tickets = $query->paginate();
         return view('livewire.tickets', compact('tickets'));
     }
@@ -121,12 +121,12 @@ class Tickets extends Component implements HasForms
             
             Grid::make(6)
                 ->schema([
-                    MultiSelect::make('priorities')
-                        ->label(__('Priorities'))
-                        ->disableLabel()
-                        ->searchable()
-                        ->placeholder(__('Priorities'))
-                        ->options(priorities_list()),
+                    // MultiSelect::make('priorities')
+                    //     ->label(__('Priorities'))
+                    //     ->disableLabel()
+                    //     ->searchable()
+                    //     ->placeholder(__('Priorities'))
+                    //     ->options(priorities_list()),
 
                     MultiSelect::make('statuses')
                         ->label(__('Statuses'))
@@ -135,19 +135,19 @@ class Tickets extends Component implements HasForms
                         ->placeholder(__('Statuses'))
                         ->options(statuses_list()),
 
-                    MultiSelect::make('types')
-                        ->label(__('Types'))
-                        ->disableLabel()
-                        ->searchable()
-                        ->placeholder(__('Types'))
-                        ->options(types_list()),
+                    // MultiSelect::make('types')
+                    //     ->label(__('Types'))
+                    //     ->disableLabel()
+                    //     ->searchable()
+                    //     ->placeholder(__('Types'))
+                    //     ->options(types_list()),
 
-                    MultiSelect::make('responsible')
-                        ->label(__('Responsible'))
-                        ->disableLabel()
-                        ->searchable()
-                        ->placeholder(__('Responsible'))
-                        ->options(User::all()->pluck('name', 'id')),
+                    // MultiSelect::make('responsible')
+                    //     ->label(__('Responsible'))
+                    //     ->disableLabel()
+                    //     ->searchable()
+                    //     ->placeholder(__('Responsible'))
+                    //     ->options(User::all()->pluck('name', 'id')),
 
                     TextInput::make('search')
                         ->label(__('Search for tickets'))
@@ -167,19 +167,19 @@ class Tickets extends Component implements HasForms
     {
         $data = $this->form->getState();
         $this->search = $data['search'] ?? null;
-        $this->priorities = $data['priorities'] ?? null;
+        // $this->priorities = $data['priorities'] ?? null;
         $this->statuses = $data['statuses'] ?? null;
-        $this->types = $data['types'] ?? null;
-        $this->responsible = $data['responsible'] ?? null;
+        // $this->types = $data['types'] ?? null;
+        // $this->responsible = $data['responsible'] ?? null;
     }
 
     public function resetFilters(): void
     {
         $this->search = null;
-        $this->priorities = null;
+        // $this->priorities = null;
         $this->statuses = null;
-        $this->types = null;
-        $this->responsible = null;
+        // $this->types = null;
+        // $this->responsible = null;
     }
 
     /**
