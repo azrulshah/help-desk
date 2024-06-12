@@ -17,7 +17,7 @@ if (!function_exists('categories_list')) {
      */
     function categories_list(): array
     {
-        return TicketCategory::whereNull('parent_id')->pluck('title','id')->toArray();
+        return TicketCategory::whereNull('parent_id')->pluck('title','slug')->toArray();
     }
 }
 
@@ -29,7 +29,7 @@ if (!function_exists('subcategories_list')) {
      */
     function subcategories_list(): array
     {
-        return TicketCategory::whereNotNull('parent_id')->pluck('title', 'id')->toArray();
+        return TicketCategory::whereNotNull('parent_id')->pluck('title','slug')->toArray();
     }
 }
 
@@ -39,27 +39,9 @@ if (!function_exists('search_all_categories')) {
      *
      * 
      */
-    function search_all_categories()
+    function search_all_categories($category = null)
     {
-        $list = [];
-        $list2 = [];
-        $categories = TicketCategory::whereNull('parent_id')->get();
-        $subcategories = TicketCategory::whereNotNull('parent_id')->get();
-        foreach ($categories as $category){
-            foreach ($subcategories as $subcategory){
-                if($subcategory->parent_id == $category->id){
-                    $list2[] = $subcategory->title;
-                    
-                }
-                
-            }
-            $list[] = [
-                "category" => $category->title,
-                "subcategory" => $list2,
-            ];
-            $list2 = [];
-        }
-        return $list;
+        return TicketCategory::where('slug', $category)->pluck('title', 'slug')->toArray();
     }
 }
 

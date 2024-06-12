@@ -63,17 +63,25 @@ return [
             'title' => 'Dashboard',
             'route' => 'home',
             'icon' => 'fa-table-columns',
-            'always_shown' => true,
+            'always_shown' => false,
             'show_notification_indicator' => false,
-            'permissions' => ['']
+            'permissions' => ['Can view Dashboard']
         ],
         [
             'title' => 'Manage notice banners',
             'route' => 'notice-banners',
             'icon' => 'fa-bullhorn',
-            'always_shown' => true,
+            'always_shown' => false,
             'show_notification_indicator' => false,
-            'permissions' => ['']
+            'permissions' => ['Manage notice banners']
+        ],
+        [
+            'title' => 'View Announcements',
+            'route' => 'announcements',
+            'icon' => 'fa-bullhorn',
+            'always_shown' => false,
+            'show_notification_indicator' => false,
+            'permissions' => ['Can view Announcement page']
         ],
         [
             'title' => 'Analytics',

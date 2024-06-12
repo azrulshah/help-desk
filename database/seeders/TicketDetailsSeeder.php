@@ -211,6 +211,67 @@ class TicketDetailsSeeder extends Seeder
             )
         );
 
+        DB::table('ticket_categories')->insert(
+            array(
+                'title' => 'Keyboard',
+                'text_color' => '#ffffff',
+                'bg_color' => '#28a745',
+                'parent_id' => 1,
+                'slug' => 'keyboard',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(
+            array(
+                'title' => 'Monitor',
+                'text_color' => '#ffffff',
+                'bg_color' => '#28a745',
+                'parent_id' => 1,
+                'slug' => 'monitor',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(
+            array(
+                'title' => 'Service',
+                'parent_id' => null,
+                'text_color' => '#ffffff',
+                'bg_color' => '#aaa233',
+                'slug' => 'service',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(
+            array(
+                'title' => 'Email',
+                'text_color' => '#ffffff',
+                'bg_color' => '#aaa233',
+                'parent_id' => 5,
+                'slug' => 'email',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(
+            array(
+                'title' => 'Website',
+                'text_color' => '#ffffff',
+                'bg_color' => '#aaa233',
+                'parent_id' => 5,
+                'slug' => 'website',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+
         DB::table('notices')->insert(
             array(
                 'title' => 'System Maintenance',

@@ -23,21 +23,26 @@ class PermissionsSeeder extends Seeder
         'Can view Analytics page',
         'Can view Tickets page',
         'Can view Kanban page',
+        'Can view Dashboard',
+        'Can view Announcement page',
         'View all users',
         'Create users',
         'Update users',
         'Delete users',
         'Assign permissions',
+        'Manage notice banners',
         'Manage ticket statuses',
         'Manage ticket priorities',
         'Manage ticket types',
+        'Manage ticket categories',
         'View activity log',
         'Manage user roles',
         'Create user roles',
         'Update user roles',
         'Delete user roles',
-        'Manage notice banners',
-        'Manage ticket categories',
+        
+        
+        
     ];
 
     /**
@@ -67,6 +72,7 @@ class PermissionsSeeder extends Seeder
             'Can view Analytics page',
             'Can view Tickets page',
             'Can view Kanban page',
+            'Can view Dashboard',
             'View all users',
             'Create users',
             'Update users',
@@ -101,7 +107,8 @@ class PermissionsSeeder extends Seeder
             'Create tickets',
             'Update own tickets',
             'Delete own tickets',
-            'Can view Tickets page'
+            'Can view Tickets page',
+            'Can view Announcement page',
 
 
         ]);

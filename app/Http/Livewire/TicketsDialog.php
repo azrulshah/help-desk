@@ -13,6 +13,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
+use Filament\Forms\Set;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -21,6 +22,8 @@ class TicketsDialog extends Component implements HasForms
     use InteractsWithForms;
 
     public Ticket $ticket;
+    public $category;
+    public $subcategory;
 
     public function mount(): void
     {
@@ -64,22 +67,16 @@ class TicketsDialog extends Component implements HasForms
                         ->label(__('Category'))
                         ->required()
                         ->searchable()
-                        ->options(categories_list()),
+                        ->options(categories_list())
+                        ->reactive() // Ensures Livewire updates subcategory options when category changes
+                        ->afterStateUpdated(fn (callable $set) => $set('subcategory', null)), // Reset subcategory when category changes,
                     Select::make('subcategory')
                         ->label(__('Subcategory'))
                         ->required()
                         ->searchable()
-                        ->options([
-                                'In Process' => [
-                                    'draft' => 'Draft',
-                                    'reviewing' => 'Reviewing',
-                                ],
-                                'Reviewed' => [
-                                    'published' => 'Published',
-                                    'rejected' => 'Rejected',
-                                ],
-                            ]
-                        ),
+                        ->reactive()
+                        ->options(fn ($get): array => TicketCategory::getSubCategories($get('category')))
+                        ->afterStateUpdated(fn (callable $set, $get, $state) => $set('category', TicketCategory::getCategories($state))), // Set category when categories changes
                 ]),
 
             TextInput::make('title')

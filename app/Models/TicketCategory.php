@@ -26,4 +26,21 @@ class TicketCategory extends Model
         return $this->hasMany(Category::class, 'parent_id')
             ->select('parent_id', 'title');
     }
+
+    public static function getSubCategories($slug)
+    {
+        if ($slug){
+            $category_id = self::where('slug', $slug)->pluck('id')->first();
+            return self::where('parent_id', $category_id)->pluck('title', 'slug')->toArray();
+        }
+        return subcategories_list();
+    }
+
+    public static function getCategories($slug)
+    {
+        if ($slug){
+            $category_id = self::where('slug', $slug)->pluck('parent_id')->first();
+            return self::where('id', $category_id)->pluck('title', 'slug')->first();
+        }
+    }
 }

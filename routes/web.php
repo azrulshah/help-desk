@@ -81,7 +81,7 @@ Route::middleware(['auth', 'set_locale'])
 
         // Notice banner
         //Route::get('/scrolling-banner', ScrollingBanner::class)->name('scrolling-banner');
-        Route::view('/show-notices','show-notices')->name('show-notices');
+        Route::view('/announcements','announcements')->name('announcements');
         Route::view('/notice-banners', 'notice-banners')
             ->name('notice-banners');
     });
