@@ -19,6 +19,7 @@
     <div class="w-full flex flex-row flex-wrap">
         <div class="lg:w-1/1 w-full flex flex-col">
             <!-- Content sections -->
+            <!-- Assigned Tickets -->
             <div id="content1" style="display: none;">
                 <div class="w-full p-5">
                     <div class="w-full flex flex-col gap-5 p-5 rounded-lg border border-gray-100 shadow-lg bg-white">
@@ -85,6 +86,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Tickets by statuses -->
             <div id="content2" style="display: none;">
                 <div class="w-full p-5">
                     <div class="w-full flex flex-col justify-center items-center gap-5 p-5

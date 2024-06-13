@@ -19,7 +19,7 @@ class TicketDetailsSeeder extends Seeder
         //Ticket priorities
         DB::table('ticket_priorities')->insert(
             array(
-                'title' => 'Low Priority',
+                'title' => 'Low',
                 'text_color' => '#000000',
                 'bg_color' => '#d4edda',
                 'icon' => 'fa-1 ',
@@ -31,7 +31,7 @@ class TicketDetailsSeeder extends Seeder
 
         DB::table('ticket_priorities')->insert(
             array(
-                'title' => 'Medium Priority',
+                'title' => 'Medium',
                 'text_color' => '#000000',
                 'bg_color' => '#fff3cd',
                 'icon' => 'fa-2',
@@ -43,23 +43,11 @@ class TicketDetailsSeeder extends Seeder
 
         DB::table('ticket_priorities')->insert(
             array(
-                'title' => 'High Priority',
+                'title' => 'High',
                 'text_color' => '#ffffff',
                 'bg_color' => '#fd7e14',
                 'icon' => 'fa-3',
                 'slug' => 'high',
-                'created_at' => new \DateTime,
-                'updated_at' => new \DateTime,
-            )
-        );
-        
-        DB::table('ticket_priorities')->insert(
-            array(
-                'title' => 'Urgent',
-                'text_color' => '#ffffff',
-                'bg_color' => '#dc3545',
-                'icon' => 'fa-4',
-                'slug' => 'urgent',
                 'created_at' => new \DateTime,
                 'updated_at' => new \DateTime,
             )
@@ -163,109 +151,217 @@ class TicketDetailsSeeder extends Seeder
             )
         );
 
-        DB::table('ticket_types')->insert(
+        DB::table('ticket_categories')->insert(// 1
             array(
-                'title' => 'Problem',
-                'text_color' => '#ffffff',
-                'bg_color' => '#721c24',
-                'icon' => 'fa-bug',
-                'slug' => 'problem',
-                'created_at' => new \DateTime,
-                'updated_at' => new \DateTime,
-            )
-        );
-
-        DB::table('ticket_types')->insert(
-            array(
-                'title' => 'Access Request',
-                'text_color' => '#ffffff',
-                'bg_color' => '#28a745',
-                'icon' => 'fa-solid fa-key',
-                'slug' => 'accessrequest',
-                'created_at' => new \DateTime,
-                'updated_at' => new \DateTime,
-            )
-        );
-
-        DB::table('ticket_categories')->insert(
-            array(
-                'title' => 'PC',
+                'title' => 'Hardware',
                 'parent_id' => null,
                 'text_color' => '#ffffff',
                 'bg_color' => '#28a745',
+                'slug' => 'hardware',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 2
+            array(
+                'title' => 'SFF / AIO / Laptop',
+                'text_color' => '#ffffff',
+                'bg_color' => '#28a745',
+                'parent_id' => 1,
                 'slug' => 'pc',
                 'created_at' => new \DateTime,
                 'updated_at' => new \DateTime,
             )
         );
 
-        DB::table('ticket_categories')->insert(
+        DB::table('ticket_categories')->insert(// 3
             array(
-                'title' => 'Mouse',
+                'title' => 'Printers and Scanners',
                 'text_color' => '#ffffff',
                 'bg_color' => '#28a745',
                 'parent_id' => 1,
-                'slug' => 'mouse',
+                'slug' => 'printer',
                 'created_at' => new \DateTime,
                 'updated_at' => new \DateTime,
             )
         );
 
-        DB::table('ticket_categories')->insert(
+        DB::table('ticket_categories')->insert(// 4
             array(
-                'title' => 'Keyboard',
-                'text_color' => '#ffffff',
-                'bg_color' => '#28a745',
-                'parent_id' => 1,
-                'slug' => 'keyboard',
-                'created_at' => new \DateTime,
-                'updated_at' => new \DateTime,
-            )
-        );
-
-        DB::table('ticket_categories')->insert(
-            array(
-                'title' => 'Monitor',
-                'text_color' => '#ffffff',
-                'bg_color' => '#28a745',
-                'parent_id' => 1,
-                'slug' => 'monitor',
-                'created_at' => new \DateTime,
-                'updated_at' => new \DateTime,
-            )
-        );
-
-        DB::table('ticket_categories')->insert(
-            array(
-                'title' => 'Service',
+                'title' => 'Software',
                 'parent_id' => null,
                 'text_color' => '#ffffff',
                 'bg_color' => '#aaa233',
-                'slug' => 'service',
+                'slug' => 'software',
                 'created_at' => new \DateTime,
                 'updated_at' => new \DateTime,
             )
         );
 
-        DB::table('ticket_categories')->insert(
+        DB::table('ticket_categories')->insert(// 5
+            array(
+                'title' => 'Operating Systems',
+                'text_color' => '#ffffff',
+                'bg_color' => '#aaa233',
+                'parent_id' => 4,
+                'slug' => 'os',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 6
+            array(
+                'title' => 'Applications',
+                'text_color' => '#ffffff',
+                'bg_color' => '#aaa233',
+                'parent_id' => 4,
+                'slug' => 'apps',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 7
             array(
                 'title' => 'Email',
                 'text_color' => '#ffffff',
                 'bg_color' => '#aaa233',
-                'parent_id' => 5,
+                'parent_id' => 4,
                 'slug' => 'email',
                 'created_at' => new \DateTime,
                 'updated_at' => new \DateTime,
             )
         );
 
-        DB::table('ticket_categories')->insert(
+        DB::table('ticket_categories')->insert(// 8
             array(
-                'title' => 'Website',
+                'title' => 'Network',
                 'text_color' => '#ffffff',
-                'bg_color' => '#aaa233',
-                'parent_id' => 5,
-                'slug' => 'website',
+                'bg_color' => '#ccc233',
+                'parent_id' => null,
+                'slug' => 'network',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 9
+            array(
+                'title' => 'Connectivity',
+                'text_color' => '#ffffff',
+                'bg_color' => '#ccc233',
+                'parent_id' => 8,
+                'slug' => 'connectivity',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 10
+            array(
+                'title' => 'Security',
+                'text_color' => '#ffffff',
+                'bg_color' => '#ccc233',
+                'parent_id' => 8,
+                'slug' => 'security',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 11
+            array(
+                'title' => 'Accounts and Access',
+                'text_color' => '#ffffff',
+                'bg_color' => '#bbb444',
+                'parent_id' => null,
+                'slug' => 'accountaccess',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 12
+            array(
+                'title' => 'User Accounts',
+                'text_color' => '#ffffff',
+                'bg_color' => '#bbb444',
+                'parent_id' => 11,
+                'slug' => 'useraccount',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 13
+            array(
+                'title' => 'e-Cloud MyIPO',
+                'text_color' => '#ffffff',
+                'bg_color' => '#bbb444',
+                'parent_id' => 11,
+                'slug' => 'ecloud',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 14
+            array(
+                'title' => 'Network Access Right',
+                'text_color' => '#ffffff',
+                'bg_color' => '#bbb444',
+                'parent_id' => 11,
+                'slug' => 'networkaccessright',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 15
+            array(
+                'title' => 'New User Account & Computer Installation',
+                'text_color' => '#ffffff',
+                'bg_color' => '#abc123',
+                'parent_id' => null,
+                'slug' => 'newuser',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 16
+            array(
+                'title' => 'Create New Account & Computer Installation',
+                'text_color' => '#ffffff',
+                'bg_color' => '#abc123',
+                'parent_id' => 15,
+                'slug' => 'createaccount',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 17
+            array(
+                'title' => 'User Re-Placement',
+                'text_color' => '#ffffff',
+                'bg_color' => '#cba321',
+                'parent_id' => null,
+                'slug' => 'userreplacement',
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime,
+            )
+        );
+
+        DB::table('ticket_categories')->insert(// 18
+            array(
+                'title' => 'User & Location',
+                'text_color' => '#ffffff',
+                'bg_color' => '#cba321',
+                'parent_id' => 17,
+                'slug' => 'userlocation',
                 'created_at' => new \DateTime,
                 'updated_at' => new \DateTime,
             )

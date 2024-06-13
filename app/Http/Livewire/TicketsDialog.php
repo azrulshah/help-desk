@@ -56,7 +56,9 @@ class TicketsDialog extends Component implements HasForms
                         ->required()
                         ->searchable()
                         ->options(types_list())
-                        ->afterStateUpdated(fn (callable $set) => $set('title', "test")),
+                        ->afterStateUpdated(function (callable $set) { 
+                            
+                        }),
 
                     Select::make('priority')
                         ->label(__('Priority'))
@@ -70,14 +72,23 @@ class TicketsDialog extends Component implements HasForms
                         ->searchable()
                         ->options(categories_list())
                         ->reactive() // Ensures Livewire updates subcategory options when category changes
-                        ->afterStateUpdated(fn (callable $set) => $set('subcategory', null)), // Reset subcategory when category changes,
+                        ->afterStateUpdated(function (callable $set, $get, $state) { //get gives slug
+                            $set('subcategory', null);  // Reset subcategory when category changes
+                        }), 
                     Select::make('subcategory')
                         ->label(__('Subcategory'))
                         ->required()
                         ->searchable()
                         ->reactive()
                         ->options(fn ($get): array => TicketCategory::getSubCategories($get('category')))
-                        ->afterStateUpdated(fn (callable $set, $get, $state) => $set('category', TicketCategory::getCategories($state))), // Set category when categories changes
+                        ->afterStateUpdated(function (callable $set, $get, $state) { //state gives slug 
+                            $set('category', TicketCategory::getCategories($state));
+                            if($get('subcategory') == "networkaccessright"){
+                                $set('content', "Department (With Floor) :<br>Request for Access? (Social Media, Streaming Service & etc) :");
+                            }else if($get('subcategory') == "createaccount"){
+                                $set('content', "Name :<br>Staff ID :<br>Mykad :<br>Position / Gred :<br>Department :<br>PC Installation Location (With Department & Floor)");
+                            }
+                    }), // Set category when categories changes
                 ]),
 
             TextInput::make('title')

@@ -31,7 +31,7 @@ class TicketSubcategoriesDialog extends Component implements HasForms
     {
         $this->form->fill([
             'title' => $this->subcategory->title,
-            'parent_id' => $this->subcategory->parent_id,
+            'parent_id' => TicketCategory::getCategoriesByParentId($this->subcategory->parent_id),
             'text_color' => $this->subcategory->text_color,
             'bg_color' => $this->subcategory->bg_color,
         ]);
@@ -54,7 +54,7 @@ class TicketSubcategoriesDialog extends Component implements HasForms
                 ->label(__('Category'))
                 ->required()
                 ->searchable()
-                ->options(categories_list()),
+                ->options(fn () => TicketCategory::whereNull('parent_id')->pluck('title','id')->toArray()),
             TextInput::make('title')
                 ->label(__('Subcategory name'))
                 ->maxLength(255)
@@ -106,7 +106,7 @@ class TicketSubcategoriesDialog extends Component implements HasForms
                 ->body(__('The category\'s details has been updated'))
                 ->send();
         }
-        $this->emit('categorySaved');
+        $this->emit('subcategorySaved');
     }
 
     /**

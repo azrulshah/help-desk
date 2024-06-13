@@ -121,6 +121,19 @@ class TicketCategoriesDialog extends Component implements HasForms
             $this->category->text_color = $data['text_color'];
             $this->category->bg_color = $data['bg_color'];
             $this->category->save();
+
+        // Fetch the ticket subcategories in a single query
+        $category_id = TicketCategory::where('slug', Str::slug($data['title'], '_'))->pluck('id')->first();
+        $subcategories = TicketCategory::where('parent_id', $category_id)->get();
+
+        foreach ($subcategories as $subcategory) {
+            // Apply the value to the subcategory (e.g., updating a specific field)
+            $subcategory->update([
+                'text_color' => $data['text_color'], 
+                'bg_color' => $data['bg_color'], 
+            ]);
+        }
+
             Notification::make()
                 ->success()
                 ->title(__('Category updated'))

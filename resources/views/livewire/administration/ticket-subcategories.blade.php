@@ -19,7 +19,9 @@
     <div class="w-full mt-5">
         <div class="w-full flex flex-col justify-start items-start gap-5">
             <div class="w-full overflow-x-auto relative sm:rounded-lg">
-                {{ $this->table }}
+                <div class="w-full overflow-x-auto relative sm:rounded-lg">
+                    {{ $this->table }}
+                </div>
             </div>
         </div>
 

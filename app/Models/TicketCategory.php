@@ -40,7 +40,14 @@ class TicketCategory extends Model
     {
         if ($slug){
             $category_id = self::where('slug', $slug)->pluck('parent_id')->first();
-            return self::where('id', $category_id)->pluck('title', 'slug')->first();
+            return self::where('id', $category_id)->pluck('slug')->first();
+        }
+    }
+
+    public static function getCategoriesByParentId($id)
+    {
+        if ($id){
+            return self::where('id', $id)->pluck('title', 'id')->first();
         }
     }
 }
